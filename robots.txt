@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://workglobalcareerltd.com/sitemap.xml
+
+# Block admin / private
+Disallow: /private/
+Disallow: /*.pdf$?download
+
+# Allow all important pages for Meta & Google
+Allow: /pages/
+Allow: /assets/
+Allow: /images/
+Allow: /css/
+Allow: /js/

@@ -1,0 +1,328 @@
+
+/* =================================
+   WORK GLOBAL ADMIN DASHBOARD
+================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f9;
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADER */
+
+.admin-header {
+    background: #0b1f3a;
+    color: #fff;
+    padding: 22px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.admin-header h1 {
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.admin-header p {
+    font-size: 14px;
+    color: #dce3ed;
+}
+
+/* MAIN CONTAINER */
+
+.admin-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 45px auto;
+    padding: 0 20px;
+    flex: 1;
+}
+
+/* CARDS AND LOGIN */
+
+.admin-card {
+    background: #fff;
+    max-width: 480px;
+    margin: 35px auto;
+    padding: 35px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+    border-top: 4px solid #d71920;
+}
+
+.admin-card h2 {
+    color: #0b1f3a;
+    margin-bottom: 10px;
+}
+
+.admin-card > p {
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+/* FORMS */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ccd2da;
+    border-radius: 5px;
+    font-size: 15px;
+    background: #fff;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #0b1f3a;
+    box-shadow: 0 0 0 2px rgba(11, 31, 58, 0.1);
+}
+
+/* BUTTONS */
+
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-primary {
+    background: #d71920;
+    color: #fff;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background: #b9151b;
+}
+
+.btn-secondary {
+    background: #fff;
+    color: #0b1f3a;
+    border: 1px solid #ccd2da;
+}
+
+.btn-secondary:hover {
+    background: #e9edf3;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* DASHBOARD HEADING */
+
+.dashboard-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.dashboard-heading h2 {
+    color: #0b1f3a;
+    margin-bottom: 8px;
+}
+
+.dashboard-heading p {
+    color: #666;
+    line-height: 1.5;
+}
+
+/* REVIEW TABS */
+
+.review-tabs {
+    display: flex;
+    gap: 10px;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 25px;
+    overflow-x: auto;
+}
+
+.tab-btn {
+    padding: 12px 20px;
+    border: none;
+    background: transparent;
+    color: #555;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn.active {
+    color: #d71920;
+    border-bottom-color: #d71920;
+}
+
+/* REVIEW LIST */
+
+.reviews-list {
+    display: grid;
+    gap: 20px;
+}
+
+.review-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #e0e4e9;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.review-card h3 {
+    color: #0b1f3a;
+    margin-bottom: 8px;
+}
+
+.review-meta {
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+.review-rating {
+    color: #d19a00;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.review-text {
+    line-height: 1.7;
+    margin-bottom: 15px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.review-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-approve {
+    background: #187a3d;
+    color: #fff;
+}
+
+.btn-approve:hover {
+    background: #126331;
+}
+
+.btn-reject {
+    background: #d71920;
+    color: #fff;
+}
+
+.btn-reject:hover {
+    background: #b9151b;
+}
+
+.review-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: capitalize;
+    background: #fff3cd;
+    color: #856404;
+    margin-bottom: 15px;
+}
+
+/* MESSAGES */
+
+.status-message {
+    margin-top: 15px;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* FOOTER */
+
+.admin-footer {
+    background: #0b1f3a;
+    color: #dce3ed;
+    text-align: center;
+    padding: 20px;
+    font-size: 13px;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+    .admin-header {
+        padding: 18px 5%;
+        flex-wrap: wrap;
+    }
+
+    .admin-header h1 {
+        font-size: 21px;
+    }
+
+    .admin-container {
+        margin: 25px auto;
+        padding: 0 15px;
+    }
+
+    .admin-card {
+        padding: 25px 20px;
+        margin: 15px auto;
+    }
+
+    .dashboard-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .dashboard-heading .btn {
+        width: 100%;
+    }
+
+    .review-card {
+        padding: 20px;
+    }
+
+    .review-actions {
+        flex-direction: column;
+    }
+
+    .review-actions .btn {
+        width: 100%;
+    }
+}

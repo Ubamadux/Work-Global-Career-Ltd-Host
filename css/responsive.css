@@ -1,0 +1,26 @@
+/* WHY WORK GLOBAL IMAGE - MOBILE */
+
+@media (max-width: 768px) {
+    .feature-image {
+        grid-column: 1 / -1;
+        min-height: auto;
+    }
+
+    .feature-image img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 684 / 297;
+        object-fit: cover;
+    }
+}/* Mobile: 1 column */
+@media (max-width: 768px) {
+    .resources-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .resources-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
