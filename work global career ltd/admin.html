@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Work Global</title>
+    
+    <!-- SECURITY: Never index this admin page for Google/Meta remote jobs ranking -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="bingbot" content="noindex, nofollow">
+    
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <header class="admin-header">
+        <div>
+            <h1>Work Global</h1>
+            <p>Private Administration Dashboard</p>
+        </div>
+        <button id="logout-btn" class="btn btn-secondary hidden">
+            Sign Out
+        </button>
+    </header>
+    <main class="admin-container">
+        <!-- LOGIN SECTION -->
+        <section id="login-section" class="admin-card">
+            <h2>Administrator Login</h2>
+            <p>Sign in to manage student reviews.</p>
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label for="admin-email">Email Address</label>
+                    <input
+                        type="email"
+                        id="admin-email"
+                        required
+                        autocomplete="username"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="admin-password">Password</label>
+                    <input
+                        type="password"
+                        id="admin-password"
+                        required
+                        autocomplete="current-password"
+                    >
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    Sign In
+                </button>
+            </form>
+            <p id="login-message" class="status-message"></p>
+        </section>
+        <!-- DASHBOARD SECTION -->
+        <section id="dashboard-section" class="hidden">
+            <div class="dashboard-heading">
+                <div>
+                    <h2>Student Reviews</h2>
+                    <p>Review and manage student feedback.</p>
+                </div>
+                <button id="refresh-btn" class="btn btn-secondary">
+                    Refresh Reviews
+                </button>
+            </div>
+            <div class="review-tabs">
+                <button class="tab-btn active" data-status="pending">
+                    Pending
+                </button>
+                <button class="tab-btn" data-status="approved">
+                    Approved
+                </button>
+                <button class="tab-btn" data-status="rejected">
+                    Rejected
+                </button>
+            </div>
+            <p id="dashboard-message" class="status-message"></p>
+            <div id="reviews-list" class="reviews-list">
+                <p>Loading reviews...</p>
+            </div>
+        </section>
+    </main>
+    <footer class="admin-footer">
+        <p>
+            &copy; 2026 Work Global Career Ltd.
+            Private administration area.
+        </p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

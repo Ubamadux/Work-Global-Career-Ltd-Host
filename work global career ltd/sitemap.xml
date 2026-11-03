@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://schemas.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.0">
+  <url>
+    <loc>https://workglobalcareerltd.com/</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://workglobalcareerltd.com/images/Why-work-global.png</image:loc>
+      <image:title>Remote Job Training - Work Global Career Ltd</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://workglobalcareerltd.com/pages/sop-vault.html</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://workglobalcareerltd.com/assets/Work-Global-Career-Prospectus-2026.pdf</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://workglobalcareerltd.com/#resources</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://workglobalcareerltd.com/#courses</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+  <loc>https://workglobalcareerltd.com/pages/remote-work-training.html</loc>
+  <lastmod>2026-05-13</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.9</priority>
+</url>
+</urlset>
+
