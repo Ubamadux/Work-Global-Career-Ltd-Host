@@ -200,32 +200,44 @@ async function loadReviews() {
         }
 
         if (currentStatus === "pending") {
-            const actions = document.createElement("div");
-            actions.className = "review-actions";
+    const actions = document.createElement("div");
+    actions.className = "review-actions";
 
-            const approveButton = document.createElement("button");
-            approveButton.className = "btn btn-approve";
-            approveButton.textContent = "Approve";
+    const approveButton = document.createElement("button");
+    approveButton.className = "btn btn-approve";
+    approveButton.textContent = "Approve";
 
-            approveButton.addEventListener("click", function () {
-                moderateReview(review.id, "approved", approveButton);
-            });
-
-            const rejectButton = document.createElement("button");
-            rejectButton.className = "btn btn-reject";
-            rejectButton.textContent = "Reject";
-
-            rejectButton.addEventListener("click", function () {
-                moderateReview(review.id, "rejected", rejectButton);
-            });
-
-            actions.appendChild(approveButton);
-            actions.appendChild(rejectButton);
-            card.appendChild(actions);
-        }
-
-        reviewsList.appendChild(card);
+    approveButton.addEventListener("click", function () {
+        moderateReview(review.id, "approved", approveButton);
     });
+
+    const rejectButton = document.createElement("button");
+    rejectButton.className = "btn btn-reject";
+    rejectButton.textContent = "Reject";
+
+    rejectButton.addEventListener("click", function () {
+        moderateReview(review.id, "rejected", rejectButton);
+    });
+
+    actions.appendChild(approveButton);
+    actions.appendChild(rejectButton);
+    card.appendChild(actions);
+
+} else if (currentStatus === "approved") {
+
+    const actions = document.createElement("div");
+    actions.className = "review-actions";
+
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "btn btn-delete";
+    deleteButton.textContent = "Delete Review";
+
+    deleteButton.addEventListener("click", function () {
+        deleteReview(review.id, deleteButton);
+    });
+
+    actions.appendChild(deleteButton);
+    card.appendChild(actions);
 }
 
 // ------------------------------------------
@@ -273,6 +285,60 @@ async function moderateReview(reviewId, newStatus, button) {
     await loadReviews();
 }
 
+// ------------------------------------------
+// DELETE AN APPROVED REVIEW
+// ------------------------------------------
+
+async function deleteReview(reviewId, button) {
+
+    const confirmed = confirm(
+        "Are you sure you want to permanently delete this approved review? This action cannot be undone."
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Deleting...";
+
+    try {
+
+        const { data, error } = await supabaseClient
+            .from("student_reviews")
+            .delete()
+            .eq("id", reviewId)
+            .select("id");
+
+        if (error) {
+            throw error;
+        }
+
+        if (!data || data.length === 0) {
+            throw new Error(
+                "No review was deleted. Check your administrator permissions."
+            );
+        }
+
+        showDashboardMessage(
+            "Review successfully deleted."
+        );
+
+        await loadReviews();
+
+    } catch (error) {
+
+        console.error("Review deletion error:", error);
+
+        showDashboardMessage(
+            error.message || "The review could not be deleted. Please try again.",
+            true
+        );
+
+        button.disabled = false;
+        button.textContent = "Delete Review";
+    }
+}
 // ------------------------------------------
 // DASHBOARD TABS
 // ------------------------------------------

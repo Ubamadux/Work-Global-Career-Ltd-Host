@@ -326,3 +326,19 @@ body {
         width: 100%;
     }
 }
+
+/* DELETE APPROVED REVIEW BUTTON */
+
+.btn-delete {
+    background: #d71920;
+    color: #fff;
+}
+
+.btn-delete:hover {
+    background: #b9151b;
+}
+
+.btn-delete:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
