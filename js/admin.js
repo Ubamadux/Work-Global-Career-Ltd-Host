@@ -240,6 +240,9 @@ async function loadReviews() {
     card.appendChild(actions);
 }
 
+    }); // Closes data.forEach()
+} // Closes loadReviews()
+
 // ------------------------------------------
 // APPROVE OR REJECT A REVIEW
 // ------------------------------------------
