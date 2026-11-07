@@ -904,8 +904,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         finalUrlInput.value = resumeUrl;
-        const formData = new FormData(form);
-        formData.delete('resume_file');
+const formData = new FormData(form);
+formData.delete('resume_file');
+formData.set('resume', resumeUrl);
 
         const response = await fetch(form.action, {
             method: "POST",
