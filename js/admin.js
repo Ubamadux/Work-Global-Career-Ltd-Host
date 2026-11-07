@@ -143,18 +143,14 @@ async function loadReviews() {
     if (error) {
         console.error("Review loading error:", error);
         reviewsList.textContent = "Unable to load reviews.";
-        showDashboardMessage(
-            "Could not load reviews. Please try again.",
-            true
-        );
+        showDashboardMessage("Could not load reviews. Please try again.", true);
         return;
     }
 
     reviewsList.innerHTML = "";
 
     if (!data || data.length === 0) {
-        reviewsList.innerHTML =
-            "<p>No " + currentStatus + " reviews found.</p>";
+        reviewsList.innerHTML = "<p>No " + currentStatus + " reviews found.</p>";
         return;
     }
 
@@ -167,9 +163,7 @@ async function loadReviews() {
 
         const meta = document.createElement("p");
         meta.className = "review-meta";
-        meta.textContent =
-            "Programme: " + review.programme + " | Submitted: " +
-            new Date(review.created_at).toLocaleString();
+        meta.textContent = "Programme: " + review.programme + " | Submitted: " + new Date(review.created_at).toLocaleString();
 
         const status = document.createElement("span");
         status.className = "review-status";
@@ -177,9 +171,7 @@ async function loadReviews() {
 
         const rating = document.createElement("div");
         rating.className = "review-rating";
-        rating.textContent =
-            "★".repeat(review.rating) +
-            "☆".repeat(5 - review.rating);
+        rating.textContent = "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
 
         const reviewText = document.createElement("p");
         reviewText.className = "review-text";
@@ -194,57 +186,43 @@ async function loadReviews() {
         if (review.success_story) {
             const story = document.createElement("p");
             story.className = "review-text";
-            story.textContent =
-                "Success story: " + review.success_story;
+            story.textContent = "Success story: " + review.success_story;
             card.appendChild(story);
         }
 
         if (currentStatus === "pending") {
-    const actions = document.createElement("div");
-    actions.className = "review-actions";
-
-    const approveButton = document.createElement("button");
-    approveButton.className = "btn btn-approve";
-    approveButton.textContent = "Approve";
-
-    approveButton.addEventListener("click", function () {
-        moderateReview(review.id, "approved", approveButton);
+            const actions = document.createElement("div");
+            actions.className = "review-actions";
+            const approveButton = document.createElement("button");
+            approveButton.className = "btn btn-approve";
+            approveButton.textContent = "Approve";
+            approveButton.addEventListener("click", function () {
+                moderateReview(review.id, "approved", approveButton);
+            });
+            const rejectButton = document.createElement("button");
+            rejectButton.className = "btn btn-reject";
+            rejectButton.textContent = "Reject";
+            rejectButton.addEventListener("click", function () {
+                moderateReview(review.id, "rejected", rejectButton);
+            });
+            actions.appendChild(approveButton);
+            actions.appendChild(rejectButton);
+            card.appendChild(actions);
+        } else if (currentStatus === "approved") {
+            const actions = document.createElement("div");
+            actions.className = "review-actions";
+            const deleteButton = document.createElement("button");
+            deleteButton.className = "btn btn-delete";
+            deleteButton.textContent = "Delete Review";
+            deleteButton.addEventListener("click", function () {
+                deleteReview(review.id, deleteButton);
+            });
+            actions.appendChild(deleteButton);
+            card.appendChild(actions);
+        }
+        reviewsList.appendChild(card);
     });
-
-    const rejectButton = document.createElement("button");
-    rejectButton.className = "btn btn-reject";
-    rejectButton.textContent = "Reject";
-
-    rejectButton.addEventListener("click", function () {
-        moderateReview(review.id, "rejected", rejectButton);
-    });
-
-    actions.appendChild(approveButton);
-    actions.appendChild(rejectButton);
-    card.appendChild(actions);
-
-} else if (currentStatus === "approved") {
-
-    const actions = document.createElement("div");
-    actions.className = "review-actions";
-
-    const deleteButton = document.createElement("button");
-    deleteButton.className = "btn btn-delete";
-    deleteButton.textContent = "Delete Review";
-
-    deleteButton.addEventListener("click", function () {
-        deleteReview(review.id, deleteButton);
-    });
-
-       actions.appendChild(deleteButton);
-    card.appendChild(actions);
 }
-
-    reviewsList.appendChild(card);  //
-
-    }); // Closes data.forEach()
-}
-} // Closes loadReviews()
 
 // ------------------------------------------
 // APPROVE OR REJECT A REVIEW
