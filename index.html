@@ -1337,27 +1337,21 @@ href="/images/work-global-career-favicon.png">
 
         <!-- RESUME UPLOAD -->
 
-        <h4>Upload Your Resume</h4>
+<h4>Upload Your Resume</h4>
 
-        <div class="form-group">
+<div class="form-group">
+    <label for="career-resume">Resume / CV (PDF, DOC or DOCX)</label>
+    <input type="file" id="career-resume" name="resume_file" accept=".pdf,.doc,.docx">
+    <small>PDF, DOC, DOCX — Max 5MB.</small>
+</div>
 
-            <label for="career-resume">
-                Resume / CV (PDF, DOC or DOCX) *
-            </label>
+<div class="form-group">
+    <label for="career-resume-link">Or paste Google Drive / 【entity-Dropbox¦canonical_name=Dropbox】 link to resume</label>
+    <input type="url" id="career-resume-link" name="resume_link" placeholder="https://drive.google.com/... (Anyone with link)">
+    <small>Upload file OR paste link — one is required.</small>
+</div>
 
-            <input
-                type="file"
-                id="career-resume"
-                name="resume"
-                accept=".pdf,.doc,.docx"
-                required
-            >
-
-            <small>
-                Upload your current resume in PDF, DOC or DOCX format.
-            </small>
-
-        </div>
+<input type="hidden" id="resume-final-url" name="resume_url">
 
 
         <!-- ADDITIONAL INFORMATION -->

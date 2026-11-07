@@ -870,69 +870,70 @@ document.addEventListener("DOMContentLoaded", function () {
 
    /* ---------- CAREER FORM WITH RESUME UPLOAD ---------- */
 
-   /* ---------- CAREER FORM WITH RESUME UPLOAD - FIXED VERSION ---------- */
-    // FIXED: Now uses fetch() with FormData, which fully supports file uploads to Formspree
-    async function submitCareerFormWithoutFetch(
-        form,
-        message,
-        successText,
-        submitButton,
-        originalButtonText
-    ) {
-        const resumeInput = form.querySelector("#career-resume");
+  async function submitCareerFormWithoutFetch(form, messageEl, successText, submitBtn, originalText) {
+    const fileInput = form.querySelector("#career-resume");
+    const linkInput = form.querySelector("#career-resume-link");
+    const finalUrlInput = form.querySelector("#resume-final-url");
+    const file = fileInput?.files[0];
 
-        if (!resumeInput || !resumeInput.files || !resumeInput.files.length) {
-            throw new Error("Please upload your resume before submitting your application.");
+    if (!file && !linkInput.value.trim()) {
+        throw new Error("Please upload your resume file OR paste a Google Drive link.");
+    }
+
+    if (file) {
+        if (!file.name.match(/\.(pdf|doc|docx)$/i)) {
+            throw new Error("Resume must be PDF, DOC or DOCX.");
         }
-
-        const resume = resumeInput.files[0];
-        const allowedExtensions = [".pdf", ".doc", ".docx"];
-        const fileName = resume.name.toLowerCase();
-        const validExtension = allowedExtensions.some(ext => fileName.endsWith(ext));
-
-        if (!validExtension) {
-            throw new Error("Please upload your resume as a PDF, DOC or DOCX file.");
-        }
-
-        if (resume.size > 10 * 1024 * 1024) {
-            throw new Error("Your resume is too large. Please upload a file smaller than 10 MB.");
-        }
-
-        const formData = new FormData(form);
-
-        // Ensure Formspree knows we want JSON response
-        try {
-            const response = await fetch(form.action, {
-                method: "POST",
-                body: formData,
-                headers: {
-                    "Accept": "application/json"
-                }
-            });
-
-            const result = await response.json().catch(() => ({}));
-
-            if (!response.ok) {
-                let errorText = "Sorry, your submission could not be sent. Please try again.";
-                if (result && Array.isArray(result.errors) && result.errors.length) {
-                    errorText = result.errors.map(item => item.message).join(" ");
-                }
-                // Formspree returns error if file upload not enabled
-                if (result.error && result.error.toLowerCase().includes("upload")) {
-                    errorText = "File upload is not enabled on this Formspree form. Please enable File Uploads in Formspree dashboard for form xljdqdqy (requires Gold plan).";
-                }
-                throw new Error(errorText);
-            }
-
-            form.reset();
-            showEmployerFormMessage(message, successText, true);
-            restoreEmployerSubmitButton(submitButton, originalButtonText);
-            window.setTimeout(() => clearEmployerFormMessage(message), 6000);
-
-        } catch (error) {
-            throw error;
+        if (file.size > 5 * 1024 * 1024) {
+            throw new Error("Resume too large — max 5MB. Use Google Drive link instead.");
         }
     }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Uploading resume...";
+
+    try {
+        let resumeUrl = linkInput.value.trim();
+
+        if (file) {
+            const fileName = `career_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+            const { error } = await supabaseClient.storage.from('career-resumes').upload(fileName, file);
+            if (error) throw new Error("Resume upload failed: " + error.message);
+            const { data: urlData } = supabaseClient.storage.from('career-resumes').getPublicUrl(fileName);
+            resumeUrl = urlData.publicUrl;
+        }
+
+        finalUrlInput.value = resumeUrl;
+        const formData = new FormData(form);
+        formData.delete('resume_file');
+
+        const response = await fetch(form.action, {
+            method: "POST",
+            body: formData,
+            headers: { "Accept": "application/json" }
+        });
+
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) {
+            throw new Error(result.errors ? result.errors.map(e => e.message).join(", ") : "Form submission failed.");
+        }
+
+        form.reset();
+        messageEl.textContent = successText;
+        messageEl.style.display = "block";
+        messageEl.style.color = "#1a7f37";
+        setTimeout(() => messageEl.style.display = "none", 6000);
+
+    } catch (err) {
+        messageEl.textContent = err.message;
+        messageEl.style.display = "block";
+        messageEl.style.color = "#d71920";
+        throw err;
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+    }
+}
 
     
 
