@@ -236,11 +236,14 @@ async function loadReviews() {
         deleteReview(review.id, deleteButton);
     });
 
-    actions.appendChild(deleteButton);
+       actions.appendChild(deleteButton);
     card.appendChild(actions);
 }
 
+    reviewsList.appendChild(card);  //
+
     }); // Closes data.forEach()
+}
 } // Closes loadReviews()
 
 // ------------------------------------------
